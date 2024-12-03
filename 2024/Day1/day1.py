@@ -1,4 +1,4 @@
-with open('Day1/data1.txt') as f:
+with open(r"Advent-of-Code\2024\Day1\data1.txt") as f:
     lines = [line.strip() for line in f]
 
 def part_one(lines):
@@ -12,7 +12,6 @@ def part_one(lines):
     leftVals.sort()
     rightVals.sort()
 
-
     answer = 0
     for i in range(len(leftVals)):
         answer += abs(leftVals[i] - rightVals[i])
@@ -22,16 +21,17 @@ def part_one(lines):
 def part_two(lines):
     answer = 0
     countRight = {} 
+    for line in lines:
+        if line[8:] not in countRight:
+            countRight[line[8:]] = 1
+        else:
+            countRight[line[8:]] += 1
+    
     for i in range(len(lines)):
-        if lines[i][:5] not in count:
-            count[lines[i][:5]] = 1
-
-        if lines[i][:8] in count:
-            count[lines[i][:5]] += 1
-
-    for key, value in count.items():
-        answer += int(key) * int(value)
+        if lines[i][:5] in countRight:
+            answer += int(lines[i][:5]) * countRight[lines[i][:5]]
     
     return answer
 
+print(part_one(lines))
 print(part_two(lines))
