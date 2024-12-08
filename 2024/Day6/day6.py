@@ -61,22 +61,28 @@ def part_two(lines):
 
     for i in range(len(lines)):
         for j in range(len(lines[i])):
+            pos = start
+            direction = 0
+            visited = set()
             if lines[i][j] == ".":
-               obstacles.add((i, j)) 
-            
-            while True:
+               obstacles.add((i, j))
+
+            while 0 <= pos[0] < len(lines) and 0 <= pos[1] < len(lines[pos[0]]):
                 next_pos = (pos[0] + directions[direction][0], pos[1] + directions[direction][1])
-                if next_pos == start and direction == 0:
+
+                if next_pos in obstacles:
+                    direction = (direction + 1) % 4
+                elif (next_pos[0], next_pos[1], direction) in visited:
                     valid_obstacles += 1
                     break
-                elif next_pos in obstacles:
-                    direction = (direction + 1) % 4
                 else:
                     pos = next_pos
-            
-            obstacles.remove((i, j))
+                    visited.add((pos[0], pos[1], direction))
+
+            if lines[i][j] == ".":
+               obstacles.remove((i, j))
 
     return valid_obstacles
 
 print(part_one(lines))
-# print(part_two(lines))
+print(part_two(lines))
