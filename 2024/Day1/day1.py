@@ -1,4 +1,4 @@
-with open(r"Advent-of-Code\2024\Day1\data1.txt") as f:
+with open("data1.txt") as f:
     lines = [line.strip() for line in f]
 
 def part_one(lines):
