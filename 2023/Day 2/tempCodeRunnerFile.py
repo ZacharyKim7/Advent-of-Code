@@ -1,0 +1,1 @@
+ red.append(int(real[0:2]))
